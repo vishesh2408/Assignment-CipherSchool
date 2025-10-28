@@ -14,7 +14,7 @@ const MONGO_URI = process.env.MONGODB_URI;
 // --- Middleware ---
 // Enable CORS for frontend communication
 // Allow multiple known frontend origins and make it easy to configure via .env
-const allowedOrigins = [process.env.FRONTEND_ORIGIN || 'http://localhost:5173', 'http://localhost:5174'];
+const allowedOrigins = [process.env.FRONTEND_ORIGIN || 'https://assignment-cipher-school.vercel.app/', 'https://assignment-cipher-school.vercel.app/'];
 app.use(cors({
     origin: function(origin, callback) {
         // Allow requests with no origin (like curl, Postman)
