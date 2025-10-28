@@ -1,6 +1,6 @@
 import { DEFAULT_USER_ID } from '../constants/defaults';
 
-const API_BASE = 'http://localhost:5000/api/projects';
+const API_BASE = 'https://assignment-cipherschool.onrender.com/api/projects';
 
 export const fetchApi = async (endpoint, data) => {
     const response = await fetch(`${API_BASE}/${endpoint}`, {
