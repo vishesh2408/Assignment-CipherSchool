@@ -3,19 +3,16 @@ import Project from '../models/ProjectModel.js';
 
 const router = express.Router();
 
-// Middleware to check for required headers (simulating authentication context)
+
 const authMiddleware = (req, res, next) => {
-    // In a real app, this would validate a JWT token and extract the real userId.
-    // Here, we ensure projectId and userId are passed in the body.
+    
     if (!req.body.userId) {
         return res.status(401).json({ message: 'Authentication context (userId) required.' });
     }
     next();
 };
 
-// @route   POST /api/projects/save
-// @desc    Save or update a project
-// @access  Public (Simulated Auth)
+
 router.post('/save', authMiddleware, async (req, res) => {
     const { projectId, userId, files, config } = req.body;
 
@@ -26,15 +23,15 @@ router.post('/save', authMiddleware, async (req, res) => {
     try {
         const updateFields = {
             userId,
-            files: JSON.stringify(files), // Store complex object as string
-            config: JSON.stringify(config), // Store config as string
-            s3AssetsLink: `s3://${process.env.AWS_S3_BUCKET_NAME}/${userId}/${projectId}`, // Simulated link
+            files: JSON.stringify(files), 
+            config: JSON.stringify(config), 
+            s3AssetsLink: `s3://${process.env.AWS_S3_BUCKET_NAME}/${userId}/${projectId}`,
         };
 
         const project = await Project.findOneAndUpdate(
-            { projectId: projectId, userId: userId }, // Find by project ID and user ID
+            { projectId: projectId, userId: userId }, 
             { $set: updateFields },
-            { upsert: true, new: true } // Create if not found, return updated document
+            { upsert: true, new: true } 
         );
 
         res.status(200).json({
@@ -47,9 +44,7 @@ router.post('/save', authMiddleware, async (req, res) => {
     }
 });
 
-// @route   POST /api/projects/load
-// @desc    Load a specific project
-// @access  Public (Simulated Auth)
+
 router.post('/load', authMiddleware, async (req, res) => {
     const { projectId, userId } = req.body;
 
@@ -66,8 +61,8 @@ router.post('/load', authMiddleware, async (req, res) => {
 
         res.status(200).json({
             projectId: project.projectId,
-            files: JSON.parse(project.files), // Parse back to object for client
-            config: JSON.parse(project.config), // Parse back to object for client
+            files: JSON.parse(project.files), 
+            config: JSON.parse(project.config), 
             updatedAt: project.updatedAt,
         });
     } catch (err) {
@@ -76,15 +71,13 @@ router.post('/load', authMiddleware, async (req, res) => {
     }
 });
 
-// @route   POST /api/projects/list
-// @desc    List all projects for a user
-// @access  Public (Simulated Auth)
+
 router.post('/list', authMiddleware, async (req, res) => {
     const { userId } = req.body;
 
     try {
         const projects = await Project.find({ userId: userId }, 'projectId updatedAt')
-            .sort({ updatedAt: -1 }); // Sort by most recent
+            .sort({ updatedAt: -1 }); 
 
         res.status(200).json(projects.map(p => ({
             projectId: p.projectId,
@@ -96,9 +89,7 @@ router.post('/list', authMiddleware, async (req, res) => {
     }
 });
 
-// @route   POST /api/projects/delete
-// @desc    Delete a specific project
-// @access  Public (Simulated Auth)
+
 router.post('/delete', authMiddleware, async (req, res) => {
     const { projectId, userId } = req.body;
 

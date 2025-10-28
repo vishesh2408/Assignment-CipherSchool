@@ -5,8 +5,6 @@ import SandpackWrapper from './components/SandpackWrapper';
 import ProjectListModal from './components/ProjectListModal';
 import ConfigModal from './components/ConfigModal';
 import CustomFileManager from './components/CustomFileManager';
-// Global Tailwind styles are imported in `src/index.css` (already used by main.jsx)
-// keep component-level or extra CSS in `src/styles.css` if needed but avoid duplicate imports here.
 
 function App() {
     const [isDark, setIsDark] = useState(true);
@@ -81,9 +79,9 @@ function App() {
     // Initial load
     useEffect(() => {
         loadProject(DEFAULT_PROJECT_ID);
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []); 
 
-    // Hide status message after delay
+    
     useEffect(() => {
         if (statusMessage && !statusMessage.startsWith('Loading')) {
             const timer = setTimeout(() => setStatusMessage(''), 3000);
