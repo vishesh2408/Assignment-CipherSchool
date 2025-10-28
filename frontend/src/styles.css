@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.app-container {
+  @apply min-h-screen bg-gray-50 dark:bg-gray-900;
+}
+
+.navbar {
+  @apply fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-md z-50;
+}
+
+.navbar-content {
+  @apply container mx-auto px-4 py-3 flex items-center justify-between;
+}
+
+.logo {
+  @apply text-2xl font-bold text-gray-800 dark:text-white;
+}
+
+.nav-controls {
+  @apply flex items-center space-x-4;
+}
+
+.main-content {
+  @apply container mx-auto px-4 pt-20 pb-8;
+}
+
+.editor-container {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden;
+  min-height: calc(100vh - 12rem);
+}
+
+.file-explorer {
+  @apply bg-gray-100 dark:bg-gray-700 p-4 border-r border-gray-200 dark:border-gray-600;
+  width: 250px;
+}
+
+.button {
+  @apply px-4 py-2 rounded-md font-medium transition-colors;
+}
+
+.button-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.button-secondary {
+  @apply bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .file-explorer {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid theme('colors.gray.200');
+  }
+
+  .editor-container {
+    min-height: calc(100vh - 16rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-controls {
+    @apply flex-wrap gap-2;
+  }
+
+  .button {
+    @apply text-sm px-3 py-1.5;
+  }
+}
